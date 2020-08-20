@@ -3,11 +3,17 @@ package br.com.zaqueucavalcante.webservicesjava.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.zaqueucavalcante.webservicesjava.entities.User;
 import br.com.zaqueucavalcante.webservicesjava.repositories.UserRepository;
+import br.com.zaqueucavalcante.webservicesjava.services.exceptions.DatabaseException;
+import br.com.zaqueucavalcante.webservicesjava.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +27,7 @@ public class UserService {
 
 	public User findById(Long id) {
 		Optional<User> entity = userRepository.findById(id);
-		return entity.get();
+		return entity.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
@@ -31,11 +37,29 @@ public class UserService {
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 	public void delete(Long id) {
-		userRepository.deleteById(id);
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-	public void update(Long id, User user) {
-		userRepository.deleteById(id);
+	public User update(Long id, User updatedUser) {
+		try {
+			User user = userRepository.getOne(id);
+			updateUser(user, updatedUser);
+			return userRepository.save(user);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	private void updateUser(User user, User updatedUser) {
+		user.setName(updatedUser.getName());
+		user.setEmail(updatedUser.getEmail());
+		user.setPhone(updatedUser.getPhone());
 	}
 }
