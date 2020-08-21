@@ -31,27 +31,4 @@ public class ProductResource {
 		Product Product = productService.findById(id);
 		return ResponseEntity.ok().body(Product);
 	}
-
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@PostMapping
-//	public ResponseEntity<Product> insert(@RequestBody Product obj) {
-//		obj = service.insert(obj);
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//				.buildAndExpand(obj.getId()).toUri();
-//		return ResponseEntity.created(uri).body(obj);
-//	}
-//	
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@DeleteMapping(value = "/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable Long id) {
-//		service.delete(id);
-//		return ResponseEntity.noContent().build();
-//	}
-//	
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@PutMapping(value = "/{id}")
-//	public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj) {
-//		obj = service.update(id, obj);
-//		return ResponseEntity.ok().body(obj);
-//	}
 }

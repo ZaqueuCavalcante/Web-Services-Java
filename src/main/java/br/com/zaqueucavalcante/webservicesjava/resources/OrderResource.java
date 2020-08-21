@@ -31,27 +31,4 @@ public class OrderResource {
 		Order order = OrderService.findById(id);
 		return ResponseEntity.ok().body(order);
 	}
-
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@PostMapping
-//	public ResponseEntity<Order> insert(@RequestBody Order obj) {
-//		obj = service.insert(obj);
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//				.buildAndExpand(obj.getId()).toUri();
-//		return ResponseEntity.created(uri).body(obj);
-//	}
-//	
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@DeleteMapping(value = "/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable Long id) {
-//		service.delete(id);
-//		return ResponseEntity.noContent().build();
-//	}
-//	
-//	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-//	@PutMapping(value = "/{id}")
-//	public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order obj) {
-//		obj = service.update(id, obj);
-//		return ResponseEntity.ok().body(obj);
-//	}
 }
