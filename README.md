@@ -10,3 +10,4 @@
 - PostgreSQL: banco de dados de produção;
 - Heroku: para deploy da aplicação;
 
+Feito durante esse curso de [Spring Boot](https://www.udemy.com/course/spring-boot-ionic/).

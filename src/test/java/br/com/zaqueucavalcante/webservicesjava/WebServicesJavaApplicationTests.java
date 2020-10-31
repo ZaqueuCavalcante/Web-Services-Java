@@ -9,5 +9,4 @@ class WebServicesJavaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
